@@ -396,35 +396,53 @@ tripletWithSmallerSum ([0], 0)//0
 > Write a function to return the list of all such triplets instead of the count. How will the <b>time complexity</b> change in this case?
 
 ````js
-function tripletWithSmallerSum (arr, target) {
-  arr.sort((a, b) => a -b)
-  const triplets = []
-  
-  for(let i = 0; i < arr.length - 2; i++){
-    searchPair(arr, target - arr[i], i, triplets)
-  }
-  return triplets;
-};
+import java.util.*;
 
-function searchPair(arr, targetSum, first, triplets){
-  
-  let start = first + 1
-  let end = arr.length -1
-  
-  while(start < end) {
-    if(arr[start] + arr[end] < targetSum) {
-      //we found the a triplet
-      //since arr[end] >= arr[start], therefore, we can replace arr[end]
-      //by any number between start and end to get a sum less than the targetSum
-      for(let i = end; i > start; i--){
-        triplets.push(arr[first], arr[start], arr[end])
-      }
-      start++
-    } else {
-      //we need a pair with a smaller sum
-      end--
+public class TripletWithSmallerSumList {
+
+    public static List<List<Integer>> tripletWithSmallerSum(int[] arr, int target) {
+        List<List<Integer>> triplets = new ArrayList<>();
+        if (arr == null || arr.length < 3) return triplets;
+
+        Arrays.sort(arr);
+
+        for (int i = 0; i < arr.length - 2; i++) {
+            searchPair(arr, target - arr[i], i, triplets);
+        }
+
+        return triplets;
     }
-  }
+
+    private static void searchPair(int[] arr, int targetSum, int first, List<List<Integer>> triplets) {
+        int start = first + 1;
+        int end = arr.length - 1;
+
+        while (start < end) {
+            if (arr[start] + arr[end] < targetSum) {
+
+                // Add ALL valid triplets
+                for (int i = end; i > start; i--) {
+                    triplets.add(Arrays.asList(arr[first], arr[start], arr[i]));
+                }
+
+                start++;
+            } else {
+                end--;
+            }
+        }
+    }
+
+    // Test
+    public static void main(String[] args) {
+        int[] arr = {-1, 0, 2, 3};
+        int target = 3;
+
+        List<List<Integer>> result = tripletWithSmallerSum(arr, target);
+
+        for (List<Integer> triplet : result) {
+            System.out.println(triplet);
+        }
+    }
 }
 ````
 - Sorting the array will take `O(N * logN)`. The `searchPair()`, in this case, will take `O(N^2)`; the main while loop will run in `O(N)` but the nested for loop can also take `O(N)` - this will happen when the target sum is bigger than every triplet in the array.  So, overall `searchTriplets()` will take `O(N * logN + N^3)`, which is asymptotically equivalent to `O(N^3)`.
