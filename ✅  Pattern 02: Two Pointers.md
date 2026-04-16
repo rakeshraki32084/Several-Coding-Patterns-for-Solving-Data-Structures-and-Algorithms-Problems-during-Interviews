@@ -23,17 +23,15 @@ We can follow the <b>Two Pointers</b> approach. We will start with one pointer p
 2. If the sum of the two numbers pointed by the <b>two pointers</b> is smaller than the `target` sum, this means that we need a pair with a larger sum. So, to try more pairs, we can increment the start-pointer.
 ### Brute Force Solution
 ````js
-function pairWithTargetSum(nums, target) {
-  for (let i = 0; i < nums.length; i++) {
-    for(let j = 1; j < nums.length; j++) {
-      if((nums[i] + nums[j]) === target) {
-        //they cannot be at the same index
-        if(i !== j) {
-          return [i, j]
+public int[] pairWithTargetSum(int[] nums, int target) {
+    for (int i = 0; i < nums.length; i++) {
+        for (int j = i + 1; j < nums.length; j++) { // start from i+1
+            if (nums[i] + nums[j] == target) {
+                return new int[]{i, j};
+            }
         }
-      } 
     }
-  }
+    return new int[]{-1, -1}; // if no pair found
 }
 ````
 ### Two pointer Solution
