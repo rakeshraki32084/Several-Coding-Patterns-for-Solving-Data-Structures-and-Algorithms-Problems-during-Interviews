@@ -37,31 +37,26 @@ public int[] pairWithTargetSum(int[] nums, int target) {
 ### Two pointer Solution
 Assume the input is sorted
 ````js
-function pairWithTargetSum(arr, target) {
-  let start = 0
-  let end = arr.length-1
-  
-  while(start < end) {
-    let currentSum = arr[start] + arr[end]
-    
-    if(currentSum === target) {
-      return [start, end]
+public int[] pairWithTargetSum(int[] arr, int target) {
+    int start = 0;
+    int end = arr.length - 1;
+
+    while (start < end) {
+        int currentSum = arr[start] + arr[end];
+
+        if (currentSum == target) {
+            return new int[]{start, end};
+        }
+
+        if (currentSum < target) {
+            start++;
+        } else {
+            end--;
+        }
     }
-    
-    if(currentSum < target) {
-      start++
-    } else {
-      end--
-    }
-  }
-  return 0  
+
+    return new int[]{-1, -1}; // no pair found
 }
-
-pairWithTargetSum([1, 2, 3, 4, 6], 6)
-//[1,3]
-
-pairWithTargetSum([2, 5, 9, 11], 11)
-//[0,2]
 ````
 - The <b>time complexity</b> of the above algorithm will be `O(N)`, where `N` is the total number of elements in the given array.
 - The algorithm runs in constant space `O(1)`.
