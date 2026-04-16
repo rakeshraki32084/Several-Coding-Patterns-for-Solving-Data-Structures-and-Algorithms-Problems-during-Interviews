@@ -131,17 +131,17 @@ https://leetcode.com/problems/remove-element/
 > Given an unsorted array of numbers and a target `key`, remove all instances of `key` </i>in-place</i> and return the new length of the array.
 
 ````js
-function removeElement(arr, key) {
-  //pointed for index of the next element which is not the key
-  let nextElement = 0;
+public int removeElement(int[] arr, int key) {
+    int nextElement = 0; // position to place next non-key element
 
-  for (i = 0; i < arr.length; i++) {
-    if (arr[i] !== key) {
-      arr[nextElement] = arr[i];
-      nextElement++;
+    for (int i = 0; i < arr.length; i++) {
+        if (arr[i] != key) {
+            arr[nextElement] = arr[i];
+            nextElement++;
+        }
     }
-  }
-  return nextElement;
+
+    return nextElement; // new length after removal
 }
 
 removeElement([3, 2, 3, 6, 3, 10, 9, 3], 3);
