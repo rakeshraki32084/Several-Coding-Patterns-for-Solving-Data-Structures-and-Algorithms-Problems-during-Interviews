@@ -101,23 +101,19 @@ In this problem, we need to remove the duplicates </i>in-place</i> such that the
 <b>Assume the input is sorted</b>
 
 ````js
-function removeDuplicates(arr) {
-  //shift the elements left when we encounter duplicates
-  
-  //one pointer for iterating
-  let i = 1
-  
-  //one pointer for placing this next non-duplicate
-  let nextNonDupe = 1
+public int removeDuplicates(int[] arr) {
+    if (arr.length == 0) return 0;
 
-  while(i < arr.length) {
-    if(arr[nextNonDupe -1] !== arr[i]) {
-      arr[nextNonDupe] = arr[i]
-      nextNonDupe++
+    int nextNonDupe = 1; // position to place next unique element
+
+    for (int i = 1; i < arr.length; i++) {
+        if (arr[i] != arr[nextNonDupe - 1]) {
+            arr[nextNonDupe] = arr[i];
+            nextNonDupe++;
+        }
     }
-    i++
-  }
-  return nextNonDupe  
+
+    return nextNonDupe; // length of unique elements
 }
 
 removeDuplicates([2, 3, 3, 3, 6, 9, 9])
