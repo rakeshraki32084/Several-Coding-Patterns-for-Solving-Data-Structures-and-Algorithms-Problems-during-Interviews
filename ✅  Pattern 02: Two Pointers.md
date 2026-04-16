@@ -67,34 +67,26 @@ Instead of using a two-pointer or a binary search approach, we can utilize a <b>
 1. Search for `Y` (which is equivalent to `“Target - X”`) in the HashTable. If it is there, we have found the required pair.
 2. Otherwise, insert `“X”` in the HashTable, so that we can search it for the later numbers.
 ````js
-function pairWithTargetSum(nums, target) {
-  //Instead of using a two-pointer or a binary search approach, 
-  //we can utilize a HashTable to search for the required pair. 
-  //We can iterate through the array one number at a time. 
-  //Let’s say during our iteration we are at number ‘X’, 
-  //so we need to find ‘Y’ such that “X + Y == Target”. 
-  
-  //We will do two things here:
-  const arr = {}
-  for(let i = 0; i < nums.length; i ++){
-    let item = nums[i]
-     
-    if(target - item in arr) {
-      //1. Search for ‘Y’ (which is equivalent to “Target - X”) in the HashTable. 
-      //If it is there, we have found the required pair
-      return [arr[target - item], i]
-    }
-    arr[nums[i]] = i
-    //2. Otherwise, insert “X” in the HashTable, so that we can search it for the later numbers.
-  }
-  return [-1, -1]
-}
+import java.util.*;
 
-pairWithTargetSum([1, 2, 3, 4, 6], 6)//[1, 3]
-pairWithTargetSum([2, 5, 9, 11], 11)//[0, 2]
-pairWithTargetSum([2, 7, 11, 15], 9)//[0, 1]
-pairWithTargetSum([3, 2, 4], 6)//[1, 2]
-pairWithTargetSum([3, 3], 6)//[0, 1]
+public int[] pairWithTargetSum(int[] nums, int target) {
+    Map<Integer, Integer> map = new HashMap<>();
+
+    for (int i = 0; i < nums.length; i++) {
+        int item = nums[i];
+        int complement = target - item;
+
+        // Check if complement already exists
+        if (map.containsKey(complement)) {
+            return new int[]{map.get(complement), i};
+        }
+
+        // Store current number with its index
+        map.put(item, i);
+    }
+
+    return new int[]{-1, -1}; // no pair found
+}
 ````
 
 - The <b>time complexity</b> of the above algorithm will be `O(N)`, where `N` is the total number of elements in the given array.
